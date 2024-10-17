@@ -262,6 +262,8 @@ func (c *Compiler) outputColumns(qc *QueryCatalog, node ast.Node) ([]*Column, er
 					cols = append(cols, &Column{
 						Name:       embed.Table.Name,
 						EmbedTable: embed.Table,
+						Table:      embed.Table,
+						NotNull:    true,
 					})
 					continue
 				}
