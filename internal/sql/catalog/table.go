@@ -120,14 +120,15 @@ func (table *Table) setNotNull(cmd *ast.AlterTableCmd) error {
 //
 // TODO: Should this just be ast Nodes?
 type Column struct {
-	Name       string
-	Type       ast.TypeName
-	IsNotNull  bool
-	IsUnsigned bool
-	IsArray    bool
-	ArrayDims  int
-	Comment    string
-	Length     *int
+	Name             string
+	Type             ast.TypeName
+	IsNotNull        bool
+	IsUnsigned       bool
+	IsArray          bool
+	ArrayDims        int
+	Comment          string
+	Length           *int
+	CheckConstraints []string
 
 	linkedType bool
 }
@@ -330,14 +331,15 @@ func (c *Catalog) createTable(stmt *ast.CreateTableStmt) error {
 
 func (c *Catalog) defineColumn(table *ast.TableName, col *ast.ColumnDef) (*Column, error) {
 	tc := &Column{
-		Name:       col.Colname,
-		Type:       *col.TypeName,
-		IsNotNull:  col.IsNotNull,
-		IsUnsigned: col.IsUnsigned,
-		IsArray:    col.IsArray,
-		ArrayDims:  col.ArrayDims,
-		Comment:    col.Comment,
-		Length:     col.Length,
+		Name:             col.Colname,
+		Type:             *col.TypeName,
+		IsNotNull:        col.IsNotNull,
+		IsUnsigned:       col.IsUnsigned,
+		IsArray:          col.IsArray,
+		ArrayDims:        col.ArrayDims,
+		Comment:          col.Comment,
+		Length:           col.Length,
+		CheckConstraints: col.CheckConstraints,
 	}
 	if col.Vals != nil {
 		typeName := ast.TypeName{

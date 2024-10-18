@@ -65,15 +65,16 @@ func (comp *Compiler) buildQueryCatalog(c *catalog.Catalog, node ast.Node, embed
 
 func ConvertColumn(rel *ast.TableName, c *catalog.Column) *Column {
 	return &Column{
-		Table:     rel,
-		Name:      c.Name,
-		DataType:  dataType(&c.Type),
-		NotNull:   c.IsNotNull,
-		Unsigned:  c.IsUnsigned,
-		IsArray:   c.IsArray,
-		ArrayDims: c.ArrayDims,
-		Type:      &c.Type,
-		Length:    c.Length,
+		Table:            rel,
+		Name:             c.Name,
+		DataType:         dataType(&c.Type),
+		NotNull:          c.IsNotNull,
+		Unsigned:         c.IsUnsigned,
+		IsArray:          c.IsArray,
+		ArrayDims:        c.ArrayDims,
+		Type:             &c.Type,
+		Length:           c.Length,
+		CheckConstraints: c.CheckConstraints,
 	}
 }
 

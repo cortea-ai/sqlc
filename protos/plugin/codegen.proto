@@ -3,7 +3,7 @@ syntax = "proto3";
 package plugin;
 
 service CodegenService {
-  rpc Generate (GenerateRequest) returns (GenerateResponse);
+  rpc Generate(GenerateRequest) returns (GenerateResponse);
 }
 
 message File {
@@ -100,6 +100,7 @@ message Column {
   string original_name = 15;
   bool unsigned = 16;
   int32 array_dims = 17;
+  repeated string check_constraints = 18;
 }
 
 message Query {

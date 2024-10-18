@@ -25,14 +25,15 @@ func (c *Compiler) OutputColumns(stmt ast.Node) ([]*catalog.Column, error) {
 	catCols := make([]*catalog.Column, 0, len(cols))
 	for _, col := range cols {
 		catCols = append(catCols, &catalog.Column{
-			Name:       col.Name,
-			Type:       ast.TypeName{Name: col.DataType},
-			IsNotNull:  col.NotNull,
-			IsUnsigned: col.Unsigned,
-			IsArray:    col.IsArray,
-			ArrayDims:  col.ArrayDims,
-			Comment:    col.Comment,
-			Length:     col.Length,
+			Name:             col.Name,
+			Type:             ast.TypeName{Name: col.DataType},
+			IsNotNull:        col.NotNull,
+			IsUnsigned:       col.Unsigned,
+			IsArray:          col.IsArray,
+			ArrayDims:        col.ArrayDims,
+			Comment:          col.Comment,
+			Length:           col.Length,
+			CheckConstraints: col.CheckConstraints,
 		})
 	}
 	return catCols, nil

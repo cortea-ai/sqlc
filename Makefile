@@ -26,6 +26,9 @@ test-ci: test-examples build-endtoend vet
 sqlc-dev:
 	go build -o ~/bin/sqlc-dev ./cmd/sqlc/
 
+sqlc:
+	go build -o ./bin/sqlc ./cmd/sqlc/
+
 sqlc-pg-gen:
 	go build -o ~/bin/sqlc-pg-gen ./internal/tools/sqlc-pg-gen
 

@@ -18,17 +18,18 @@ type Table struct {
 }
 
 type Column struct {
-	Name         string
-	OriginalName string
-	DataType     string
-	NotNull      bool
-	Unsigned     bool
-	IsArray      bool
-	ArrayDims    int
-	Comment      string
-	Length       *int
-	IsNamedParam bool
-	IsFuncCall   bool
+	Name             string
+	OriginalName     string
+	DataType         string
+	NotNull          bool
+	Unsigned         bool
+	IsArray          bool
+	ArrayDims        int
+	Comment          string
+	Length           *int
+	IsNamedParam     bool
+	IsFuncCall       bool
+	CheckConstraints []string
 
 	// XXX: Figure out what PostgreSQL calls `foo.id`
 	Scope      string

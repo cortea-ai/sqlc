@@ -29,6 +29,23 @@ func isNotNull(n *nodes.ColumnDef) bool {
 	return false
 }
 
+func checkConstraints(n *nodes.ColumnDef) (conVals []string) {
+	for _, c := range n.Constraints {
+		switch inner := c.Node.(type) {
+		case *nodes.Node_Constraint:
+			if inner.Constraint.Contype == nodes.ConstrType_CONSTR_CHECK {
+				for _, val := range inner.Constraint.GetRawExpr().GetAExpr().
+					GetRexpr().GetList().GetItems() {
+					if v := val.GetAConst().GetSval().GetSval(); v != "" {
+						conVals = append(conVals, v)
+					}
+				}
+			}
+		}
+	}
+	return conVals
+}
+
 func IsNamedParamFunc(node *nodes.Node) bool {
 	fun, ok := node.Node.(*nodes.Node_FuncCall)
 	return ok && joinNodes(fun.FuncCall.Funcname, ".") == "sqlc.arg"

@@ -105,6 +105,7 @@ func pluginCatalog(c *catalog.Catalog) *plugin.Catalog {
 						Schema:  t.Rel.Schema,
 						Name:    t.Rel.Name,
 					},
+					CheckConstraints: c.CheckConstraints,
 				})
 			}
 			tables = append(tables, &plugin.Table{
