@@ -104,6 +104,10 @@ func processQuerySets(ctx context.Context, rp ResultProcessor, conf *config.Conf
 			packageRegion := trace.StartRegion(gctx, "package")
 			trace.Logf(gctx, "", "name=%s dir=%s plugin=%s", name, dir, lang)
 
+			if o.Env.NoDatabase {
+				sql.SQL.Database = nil
+			}
+
 			result, failed := parse(gctx, name, dir, sql.SQL, combo, parseOpts, errout)
 			if failed {
 				packageRegion.End()
