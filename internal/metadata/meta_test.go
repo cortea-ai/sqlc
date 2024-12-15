@@ -77,7 +77,7 @@ func TestParseQueryParams(t *testing.T) {
 			" @param @invalid UUID ",
 		},
 	} {
-		params, _, err := ParseParamsAndFlags(comments)
+		params, _, _, err := ParseParamsAndFlags(comments)
 		if err != nil {
 			t.Errorf("expected comments to parse, got err: %s", err)
 		}
@@ -123,7 +123,7 @@ func TestParseQueryFlags(t *testing.T) {
 			" @param @flag-bar UUID",
 		},
 	} {
-		_, flags, err := ParseParamsAndFlags(comments)
+		_, flags, _, err := ParseParamsAndFlags(comments)
 		if err != nil {
 			t.Errorf("expected comments to parse, got err: %s", err)
 		}

@@ -12,11 +12,12 @@ import (
 type CommentSyntax source.CommentSyntax
 
 type Metadata struct {
-	Name     string
-	Cmd      string
-	Comments []string
-	Params   map[string]string
-	Flags    map[string]bool
+	Name         string
+	Cmd          string
+	ResponseType string
+	Comments     []string
+	Params       map[string]string
+	Flags        map[string]bool
 
 	Filename string
 }
@@ -113,9 +114,10 @@ func ParseQueryNameAndType(t string, commentStyle CommentSyntax) (string, string
 	return "", "", nil
 }
 
-func ParseParamsAndFlags(comments []string) (map[string]string, map[string]bool, error) {
+func ParseParamsAndFlags(comments []string) (map[string]string, map[string]bool, string, error) {
 	params := make(map[string]string)
 	flags := make(map[string]bool)
+	var responseType string
 
 	for _, line := range comments {
 		s := bufio.NewScanner(strings.NewReader(line))
@@ -138,14 +140,17 @@ func ParseParamsAndFlags(comments []string) (map[string]string, map[string]bool,
 				rest = append(rest, paramToken)
 			}
 			params[name] = strings.Join(rest, " ")
+		case "@type":
+			s.Scan()
+			responseType = s.Text()
 		default:
 			flags[token] = true
 		}
 
 		if s.Err() != nil {
-			return params, flags, s.Err()
+			return params, flags, responseType, s.Err()
 		}
 	}
 
-	return params, flags, nil
+	return params, flags, responseType, nil
 }

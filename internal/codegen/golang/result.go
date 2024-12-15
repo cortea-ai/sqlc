@@ -218,6 +218,7 @@ func buildQueries(req *plugin.GenerateRequest, options *opts.Options, structs []
 
 		gq := Query{
 			Cmd:          query.Cmd,
+			ResponseType: query.ResponseType,
 			ConstantName: constantName,
 			FieldName:    sdk.LowerTitle(query.Name) + "Stmt",
 			MethodName:   query.Name,

@@ -54,20 +54,23 @@ func (c *Compiler) parseQuery(stmt ast.Node, src string, o opts.Parser) (*Query,
 		return nil, err
 	}
 
-	md := metadata.Metadata{
-		Name: name,
-		Cmd:  cmd,
-	}
-
 	// TODO eventually can use this for name and type/cmd parsing too
 	cleanedComments, err := source.CleanedComments(rawSQL, c.parser.CommentSyntax())
 	if err != nil {
 		return nil, err
 	}
 
-	md.Params, md.Flags, err = metadata.ParseParamsAndFlags(cleanedComments)
+	params, flags, responseType, err := metadata.ParseParamsAndFlags(cleanedComments)
 	if err != nil {
 		return nil, err
+	}
+
+	md := metadata.Metadata{
+		Name:         name,
+		Cmd:          cmd,
+		Params:       params,
+		Flags:        flags,
+		ResponseType: responseType,
 	}
 
 	var anlys *analysis

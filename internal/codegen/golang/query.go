@@ -257,6 +257,7 @@ func (v QueryValue) VariableForField(f Field) string {
 // A struct used to generate methods and fields on the Queries struct
 type Query struct {
 	Cmd          string
+	ResponseType string
 	Comments     []string
 	MethodName   string
 	FieldName    string

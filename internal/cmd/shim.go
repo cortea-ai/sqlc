@@ -156,6 +156,7 @@ func pluginQueries(r *compiler.Result) []*plugin.Query {
 		out = append(out, &plugin.Query{
 			Name:            q.Metadata.Name,
 			Cmd:             q.Metadata.Cmd,
+			ResponseType:    q.Metadata.ResponseType,
 			Text:            q.SQL,
 			Comments:        q.Metadata.Comments,
 			Columns:         columns,
