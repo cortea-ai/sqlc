@@ -12,7 +12,7 @@ builds:
     goarch:
       - amd64
       - arm64
-    main: .
+    main: ./cmd/sqlc
     binary: sqlc
     ldflags:
       - -s -w -X main.version={{.Tag}}
